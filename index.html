@@ -31,7 +31,188 @@
   
   <h1>Chirpsearch</h1>
 
-  <p>search stuff here</p>
+<form action="https://twitter.com/search">
+
+    <fieldset>
+      <legend class="t1-legend"><span>Words</span></legend>
+      <div class="txt">
+        <label class="t1-label">
+          <span class="td">All of these words</span>
+          <input type="text" name="ands" />
+        </label>
+      </div>
+      <div class="txt">
+        <label class="t1-label">
+          <span class="td">This exact phrase</span>
+          <input type="text" name="phrase" />
+        </label>
+      </div>
+      <div class="txt">
+        <label class="t1-label">
+          <span class="td">Any of these words</span>
+          <input type="text" name="ors" />
+        </label>
+      </div>
+      <div class="txt">
+        <label class="t1-label">
+          <span class="td">None of these words</span>
+          <input type="text" name="nots" />
+        </label>
+      </div>
+      <div class="txt">
+        <label class="t1-label">
+          <span class="td">These hashtags</span>
+          <input type="text" name="tag" />
+        </label>
+      </div>
+      <div class="txt">
+        <label class="t1-label">
+          <span class="td">Written in</span>
+          <select class="t1-select" id="lang" name="lang">
+            <option value="all" selected="selected">Any Language</option>
+              <option value="am">Amharic (አማርኛ)</option>
+              <option value="ar">Arabic (العربية)</option>
+              <option value="bg">Bulgarian (Български)</option>
+              <option value="bn">Bengali (বাংলা)</option>
+              <option value="bo">Tibetan (བོད་སྐད)</option>
+              <option value="chr">Cherokee (ᏣᎳᎩ)</option>
+              <option value="da">Danish (Dansk)</option>
+              <option value="de">German (Deutsch)</option>
+              <option value="dv">Maldivian (ދިވެހި)</option>
+              <option value="el">Greek (Ελληνικά)</option>
+              <option value="en">English (English)</option>
+              <option value="es">Spanish (Español)</option>
+              <option value="fa">Persian (فارسی)</option>
+              <option value="fi">Finnish (Suomi)</option>
+              <option value="fr">French (Français)</option>
+              <option value="gu">Gujarati (ગુજરાતી)</option>
+              <option value="iw">Hebrew (עברית)</option>
+              <option value="hi">Hindi (हिंदी)</option>
+              <option value="hu">Hungarian (Magyar)</option>
+              <option value="hy">Armenian (Հայերեն)</option>
+              <option value="in">Indonesian (Bahasa Indonesia)</option>
+              <option value="is">Icelandic (Íslenska)</option>
+              <option value="it">Italian (Italiano)</option>
+              <option value="iu">Inuktitut (ᐃᓄᒃᑎᑐᑦ)</option>
+              <option value="ja">Japanese (日本語)</option>
+              <option value="ka">Georgian (ქართული)</option>
+              <option value="km">Khmer (ខ្មែរ)</option>
+              <option value="kn">Kannada (ಕನ್ನಡ)</option>
+              <option value="ko">Korean (한국어)</option>
+              <option value="lo">Lao (ລາວ)</option>
+              <option value="lt">Lithuanian (Lietuvių)</option>
+              <option value="ml">Malayalam (മലയാളം)</option>
+              <option value="my">Myanmar (မြန်မာဘာသာ)</option>
+              <option value="ne">Nepali (नेपाली)</option>
+              <option value="nl">Dutch (Nederlands)</option>
+              <option value="no">Norwegian (Norsk)</option>
+              <option value="or">Oriya (ଓଡ଼ିଆ)</option>
+              <option value="pa">Panjabi (ਪੰਜਾਬੀ)</option>
+              <option value="pl">Polish (Polski)</option>
+              <option value="pt">Portuguese (Português)</option>
+              <option value="ru">Russian (Русский)</option>
+              <option value="si">Sinhala (සිංහල)</option>
+              <option value="sv">Swedish (Svenska)</option>
+              <option value="ta">Tamil (தமிழ்)</option>
+              <option value="te">Telugu (తెలుగు)</option>
+              <option value="th">Thai (ไทย)</option>
+              <option value="tl">Tagalog (Tagalog)</option>
+              <option value="tr">Turkish (Türkçe)</option>
+              <option value="ur">Urdu (ﺍﺭﺩﻭ)</option>
+              <option value="vi">Vietnamese (Tiếng Việt)</option>
+              <option value="zh">Chinese (中文)</option>
+          </select>
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend class="t1-legend"><span>People</span></legend>
+      <div class="txt">
+        <label class="t1-label">
+          <span class="td">From these accounts</span>
+          <input type="text" name="from" />
+        </label>
+      </div>
+      <div class="txt">
+        <label class="t1-label">
+          <span class="td">To these accounts</span>
+          <input type="text" name="to" />
+        </label>
+      </div>
+      <div class="txt">
+        <label class="t1-label">
+          <span class="td">Mentioning these accounts</span>
+          <input type="text" name="ref" />
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset class="geo">
+      <legend class="t1-legend"><span>Places</span></legend>
+      <div class="txt geo-picker-container">
+          <span class="td">Near this place</span>
+            <div class="geo-picker">
+  <button class="btn js-geo-search-trigger geo-picker-btn icon-btn js-tooltip" type="button" title="Add location">
+    <span class="Icon Icon--geo"></span>
+    <span class="text geo-status">Add location</span>
+  </button>
+  <span class="dropdown-container"></span>
+  <input type="hidden" name="place_id">
+</div>
+
+      </div>
+      <div class="sel">
+        <label class="t1-label">
+          <span class="td">Within this distance</span>
+          <select class="t1-select" name="within">
+            <option value="1">1</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15" selected="selected">15</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="500">500</option>
+            <option value="1000">1000</option>
+          </select>
+        </label>
+        <span class="rad">
+          <label class="t1-label"><input name="units" type="radio" value="mi" checked="checked" /><span>miles</span></label>
+          <label class="t1-label"><input name="units" type="radio" value="km" /><span>kilometers</span></label>
+        </span>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend class="t1-legend"><span>Dates</span></legend>
+      <div class="txt">
+        <label for="since" class="t1-label td">From this date</label>
+        <div class="input-daterange input-group" id="datepicker">
+          <input type="text" class="input-sm form-control input-since" name="since" id="since" />
+          <label for="until" class="t1-label input-group-addon">to</label>
+          <input type="text" class="input-sm form-control input-until" name="until" id="until" />
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend class="t1-legend"><span>Other</span></legend>
+      <div class="chk">
+        <span class="td">Select:</span>
+        <span class="chk-inner">
+          <label class="t1-label"><input name="attd" type="checkbox" value=":)" /><span>Positive :)</span></label>
+          <label class="t1-label"><input name="attd" type="checkbox" value=":(" /><span>Negative :(</span></label>
+          <label class="t1-label"><input name="attd" type="checkbox" value="?" /><span>Question ?</span></label>
+          <label class="t1-label"><input name="include" type="checkbox" value="retweets" /><span>Include retweets</span></label>
+        </span>
+      </div>
+    </fieldset>
+
+    
+    <button class="button btn primary-btn submit selected" type="submit" value="go">Search</button>
+
+  </form>
 
 </body>
 </html>

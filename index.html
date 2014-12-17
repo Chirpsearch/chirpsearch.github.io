@@ -29,8 +29,62 @@
 			// Hide the alert box
 			$("#alert").hide();
 			
-			// Get the text
-			var q = $("#q").val();
+			var q = '';
+			
+			// Get the plain text
+			var ands = $("#q").val();
+			if (ands != '') {
+				q += ands;
+			}
+			
+			// Get exact phrase text
+			var phrase = $("input[name='phrase']").val();
+			if (phrase != '') {
+				q += ' ' + '"' + phrase + '"';
+			}
+
+			// Get any words
+			var ors = $("input[name='ors']").val();
+			if (ors != '') {
+				q += ' ' + ors;
+			}
+			
+			// Get none words
+			var nots = $("input[name='nots']").val();
+			if (nots != '') {
+				q += ' ' + '-' + nots.replace(/ /g,' -');
+			}
+			
+			// Get Hashtags
+			var tag = $("input[name='tag']").val();
+			if (tag != '') {
+				q += ' ' + '#' + tag.replace(/ /g,' #');
+			}
+			
+			// Get Language
+			var lang = $("#lang").val();
+			if ((lang != '') && (lang != 'all')) {
+				q += ' ' + 'lang:' + lang;
+			}
+			
+			// From
+			var from = $("input[name='from']").val();
+			if (from != '') {
+				q += ' ' + 'from:' + from.replace(/ /g,' from:');
+			}
+			
+			// To
+			var to = $("input[name='to']").val();
+			if (to != '') {
+				q += ' ' + 'to:' + to.replace(/ /g,' to:');
+			}
+
+			// Mentioning
+			var ref = $("input[name='ref']").val();
+			if (ref != '') {
+				q += ' ' + '@' + ref.replace(/ /g,' @');
+			}
+			
 			if (q == '') {
 				return warn('Please enter something to search for.');
 			}
@@ -43,7 +97,19 @@
 			$("#alert").html(t).show();
 			return false;
 		}
+		
+		function addParam() {
+			var p = $("#param").val();
+			if (p == '') { return false; }
+			$("#"+p+"opt").show();
+			$("select option[value='"+ p + "']").attr('disabled','disabled'); 
+			$("#param").val("");
+		}
 	</script>
+	
+	<style>
+		div.txt {display:none;}
+	</style>
   </head>
 
   <body>
@@ -75,42 +141,45 @@
 					<div class="alert alert-danger" id="alert" style="display:none;"></div>
 					
 					<form class="form-inline" role="form" onsubmit="return false;">
-					  
-						<!--
+
+					  <div class="form-group">
+					    <input type="text" class="form-control" id="q" placeholder="Search tweets for...">
+					  </div>
+					  <button type="submit" class="btn btn-warning btn-lg" onclick="doSearch();">Search</button>
 
 						<fieldset>
 						      
-						      <div class="txt">
+						      <div class="txt" id="andsopt">
 						        <label class="t1-label">
 						          <span class="td">All of these words</span>
 						          <input type="text" name="ands" />
 						        </label>
 						      </div>
-						      <div class="txt">
+						      <div class="txt" id="phraseopt">
 						        <label class="t1-label">
 						          <span class="td">This exact phrase</span>
 						          <input type="text" name="phrase" />
 						        </label>
 						      </div>
-						      <div class="txt">
+						      <div class="txt" id="orsopt">
 						        <label class="t1-label">
 						          <span class="td">Any of these words</span>
 						          <input type="text" name="ors" />
 						        </label>
 						      </div>
-						      <div class="txt">
+						      <div class="txt" id="notsopt">
 						        <label class="t1-label">
 						          <span class="td">None of these words</span>
 						          <input type="text" name="nots" />
 						        </label>
 						      </div>
-						      <div class="txt">
+						      <div class="txt" id="tagopt">
 						        <label class="t1-label">
 						          <span class="td">These hashtags</span>
 						          <input type="text" name="tag" />
 						        </label>
 						      </div>
-						      <div class="txt">
+						      <div class="txt" id="langopt">
 						        <label class="t1-label">
 						          <span class="td">Written in</span>
 						          <select class="t1-select" id="lang" name="lang">
@@ -173,19 +242,19 @@
 
 						    <fieldset>
 						      
-						      <div class="txt">
+						      <div class="txt" id="fromopt">
 						        <label class="t1-label">
 						          <span class="td">From these accounts</span>
 						          <input type="text" name="from" />
 						        </label>
 						      </div>
-						      <div class="txt">
+						      <div class="txt" id="toopt">
 						        <label class="t1-label">
 						          <span class="td">To these accounts</span>
 						          <input type="text" name="to" />
 						        </label>
 						      </div>
-						      <div class="txt">
+						      <div class="txt" id="refopt">
 						        <label class="t1-label">
 						          <span class="td">Mentioning these accounts</span>
 						          <input type="text" name="ref" />
@@ -193,6 +262,7 @@
 						      </div>
 						    </fieldset>
 
+							<!--
 						    <fieldset class="geo">
 						      <legend class="t1-legend"><span>Places</span></legend>
 						      <div class="txt geo-picker-container">
@@ -254,15 +324,20 @@
 						      </div>
 						    </fieldset> -->
 
-
-					  <div class="form-group">
-					    <input type="text" class="form-control" id="q" placeholder="Search tweets for...">
-					  </div>
-					  <button type="submit" class="btn btn-warning btn-lg" onclick="doSearch();">Search</button>
-
-					  <h2>
+					  <!-- <h2>
 					  	<a href="#">+ Add Parameter</a>
-					  </h2>
+					  </h2> -->
+					  <select onchange="addParam();" id="param">
+						<option value="">+ Add Parameter</option>
+						<option value="phrase">Exact Phrase</option>
+						<option value="ors">Any of these words</option>
+						<option value="nots">None of these words</option>
+						<option value="tag">Specific Hashtags</option>
+						<option value="lang">Language</option>
+						<option value="from">From Specific Accounts</option>
+						<option value="to">To Specific Accounts</option>
+						<option value="ref">Mentioning Specific Accounts</option>
+					  </select>
 
 					</form>					
 				</div><!-- /col-lg-6 -->

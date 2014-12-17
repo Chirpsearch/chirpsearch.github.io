@@ -8,8 +8,6 @@
 
     <title>Chirpsearch</title>
 
-	<!-- test -->
-
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
 
@@ -26,6 +24,26 @@
     <![endif]-->
 
     <script type="text/javascript"></script>
+	<script>
+		function doSearch() {
+			// Hide the alert box
+			$("#alert").hide();
+			
+			// Get the text
+			var q = $("#q").val();
+			if (q == '') {
+				return warn('Please enter something to search for.');
+			}
+			
+			// Send to Twitter
+			document.location = 'https://twitter.com/search?q=' + q;
+		}
+		
+		function warn(t) {
+			$("#alert").html(t).show();
+			return false;
+		}
+	</script>
   </head>
 
   <body>
@@ -54,7 +72,9 @@
 		<div class="container" style="margin-top:40px;">
 			<div class="row mt">
 				<div class="col-lg-6">
-					<form class="form-inline" role="form">
+					<div class="alert alert-danger" id="alert" style="display:none;"></div>
+					
+					<form class="form-inline" role="form" onsubmit="return false;">
 					  
 						<!--
 
@@ -236,9 +256,9 @@
 
 
 					  <div class="form-group">
-					    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Search tweets for...">
+					    <input type="text" class="form-control" id="q" placeholder="Search tweets for...">
 					  </div>
-					  <button type="submit" class="btn btn-warning btn-lg">Search</button>
+					  <button type="submit" class="btn btn-warning btn-lg" onclick="doSearch();">Search</button>
 
 					  <h2>
 					  	<a href="#">+ Add Parameter</a>

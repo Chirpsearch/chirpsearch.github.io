@@ -102,8 +102,8 @@
 			var p = $("#param").val();
 			if (p == '') { return false; }
 			$("#"+p+"opt").show();
-			$("select option[value='"+ p + "']").attr('disabled','disabled'); 
 			$("#param").val("");
+			$("select option[value='"+ p + "']").remove();
 		}
 	</script>
 	

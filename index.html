@@ -89,6 +89,16 @@
 				return warn('Please enter something to search for.');
 			}
 			
+			// Store locally
+			if (typeof(Storage) !== "undefined") {
+				var storedSearches = [];
+				if (localStorage.getItem("searches") !== null) {
+					storedSearches = JSON.parse(localStorage["searches"]);
+				}
+				storedSearches.push(q);
+				localStorage["searches"] = JSON.stringify(storedSearches);
+			} 
+			
 			// Send to Twitter
 			document.location = 'https://twitter.com/search?f=realtime&q=' + q;
 		}
@@ -339,7 +349,9 @@
 						<option value="ref">Mentioning Specific Accounts</option>
 					  </select>
 
-					</form>					
+					</form>		
+					
+					<div id="pastsearches"></div>			
 				</div><!-- /col-lg-6 -->
 				<div class="col-lg-6">
 				</div><!-- /col-lg-6 -->
@@ -362,5 +374,14 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
+	<script>
+		$(function() {
+		  if (localStorage.getItem("searches") !== null) {
+		  	$.each(JSON.parse(localStorage["searches"]), function( index, value ) {
+			  $("<a>").attr('href','https://twitter.com/search?f=realtime&q='+value).html((index + 1)).appendTo("#pastsearches");
+			});
+		  }
+		});
+	</script>
   </body>
 </html>
